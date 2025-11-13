@@ -1,6 +1,6 @@
 // === KONFIGURASJON ===
 // Sett inn URL-en til Cloudflare Workeren din her:
-const WORKER_URL = "https://masterhelper-ai-proxy.sindre-sveen.workers.dev/"; 
+const WORKER_URL = "https://masterhelper-ai-proxy.sindre-sveen.workers.dev//"; 
 // ⬆️ BYTT UT denne med din ekte URL (fra Cloudflare)
 
 
