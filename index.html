@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MasterHelper – AI for masterstudenter</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Script.js -->
+    <script defer src="script.js"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- HEADER -->
+    <header class="bg-white shadow p-6 mb-10">
+        <h1 class="text-3xl font-bold text-center">🎓 MasterHelper</h1>
+        <p class="text-center text-gray-600 mt-2">AI-verktøy for masterstudenter</p>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4">
+
+        <!-- PROBLEMSTILLING-GENERATOR -->
+        <section class="bg-white p-6 rounded-xl shadow mb-8">
+            <h2 class="text-xl font-semibold mb-4">1. Problemstilling-generator</h2>
+
+            <label class="block mb-2 font-medium">Tema:</label>
+            <input id="tema" type="text" class="w-full p-2 border rounded mb-4" placeholder="Hva ønsker du å forske på?">
+
+            <label class="block mb-2 font-medium">Fagfelt:</label>
+            <input id="fagfelt" type="text" class="w-full p-2 border rounded mb-4" placeholder="For eksempel: kommunikasjon, psykologi, økonomi">
+
+            <button onclick="generateProblemstilling()" 
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Generer problemstillinger
+            </button>
+
+            <div id="output-problemstilling" class="mt-4 p-4 bg-gray-50 rounded border"></div>
+        </section>
+
+        <!-- STRUKTURBYGGER -->
+        <section class="bg-white p-6 rounded-xl shadow mb-8">
+            <h2 class="text-xl font-semibold mb-4">2. Strukturbygger for masteroppgaven</h2>
+
+            <label class="block mb-2 font-medium">Problemstilling:</label>
+            <input id="struktur-problemstilling" type="text" class="w-full p-2 border rounded mb-4">
+
+            <button onclick="generateStruktur()" 
+                class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+                Generer struktur
+            </button>
+
+            <div id="output-struktur" class="mt-4 p-4 bg-gray-50 rounded border"></div>
+        </section>
+
+        <!-- AKADEMISK OMSKRIVER -->
+        <section class="bg-white p-6 rounded-xl shadow mb-8">
+            <h2 class="text-xl font-semibold mb-4">3. Akademisk omskriver</h2>
+
+            <label class="block mb-2 font-medium">Lim inn tekst:</label>
+            <textarea id="akademisk-input" class="w-full p-3 border rounded mb-4" rows="5"></textarea>
+
+            <button onclick="rewriteAcademic()" 
+                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                Skriv om til akademisk språk
+            </button>
+
+            <div id="output-akademisk" class="mt-4 p-4 bg-gray-50 rounded border"></div>
+        </section>
+
+        <!-- REFERANSEHJELPER -->
+        <section class="bg-white p-6 rounded-xl shadow mb-8">
+            <h2 class="text-xl font-semibold mb-4">4. Referansehjelper (APA / Harvard)</h2>
+
+            <label class="block mb-2 font-medium">Tittel:</label>
+            <input id="ref-tittel" type="text" class="w-full p-2 border rounded mb-4">
+
+            <label class="block mb-2 font-medium">Forfatter:</label>
+            <input id="ref-forfatter" type="text" class="w-full p-2 border rounded mb-4">
+
+            <label class="block mb-2 font-medium">År:</label>
+            <input id="ref-år" type="text" class="w-full p-2 border rounded mb-4">
+
+            <button onclick="generateReferanse()" 
+                class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                Generer referanser
+            </button>
+
+            <div id="output-referanse" class="mt-4 p-4 bg-gray-50 rounded border"></div>
+        </section>
+
+    </main>
+
+    <footer class="text-center text-gray-600 py-6">
+        Laget for masterstudenter
+    </footer>
+
+</body>
+</html>
