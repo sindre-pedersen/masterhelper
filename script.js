@@ -4,7 +4,6 @@ const WORKER_URL = "https://masterhelper-ai-proxy.sindre-sveen.workers.dev/";
 // ⬆️ BYTT UT denne med din ekte URL (fra Cloudflare)
 
 
-// Hjelpefunksjon: snakker med Cloudflare Worker (som igjen snakker med OpenAI)
 async function callOpenAI(prompt) {
     const response = await fetch(WORKER_URL, {
         method: "POST",
@@ -14,21 +13,30 @@ async function callOpenAI(prompt) {
         body: JSON.stringify({ prompt }),
     });
 
-    if (!response.ok) {
-        const text = await response.text();
-        console.error("Feil fra worker:", text);
-        throw new Error("Noe gikk galt med proxyen (Cloudflare Worker).");
+    const rawText = await response.text();
+    let data;
+
+    try {
+        data = JSON.parse(rawText);
+    } catch (e) {
+        console.error("Klarte ikke å parse JSON fra worker:", rawText);
+        throw new Error("Worker returnerte noe som ikke var gyldig JSON.");
     }
 
-    const data = await response.json();
+    // Hvis workeren selv rapporterer en feil:
+    if (!response.ok || data.error) {
+        console.error("Feil fra worker/OpenAI:", data);
+        const msg = data.error || data.details || "Ukjent feil fra worker/OpenAI.";
+        throw new Error(msg);
+    }
 
-    // Forventer samme struktur som OpenAI /v1/responses
+    // Prøv å hente ut tekst på “nytt” OpenAI-format
     try {
         const text = data.output[0].content[0].text.value;
-        return text.trim();
+        return String(text).trim();
     } catch (e) {
-        console.error("Klarte ikke å lese svar fra worker/OpenAI:", data);
-        throw new Error("Klarte ikke å lese svar fra modellen.");
+        console.warn("Klarte ikke å lese tekst på forventet format. Rått svar:", data);
+        return JSON.stringify(data, null, 2);
     }
 }
 
